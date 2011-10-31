@@ -1,7 +1,7 @@
 # Hood
 
-*Hood is currently in alpha development. Our feature-set isn't fully developed,
-our specs are weak, and there are probably bugs.*
+**Hood is currently in alpha development. Our feature-set isn't fully developed,
+our specs are weak, and there are probably bugs.**
 
 Hood is to enviroment variables as bundler is to gems. To put it simply, we have
 the following goals:
