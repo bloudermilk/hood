@@ -22,9 +22,9 @@ def in_tmp(&block)
   end
 end
 
-def with_envfile(name, contents="")
+def with_envfile(contents="")
   in_tmp do
     File.open("Envfile", "w") {|f| f.puts contents }
-    yield
+    yield "Envfile"
   end
 end

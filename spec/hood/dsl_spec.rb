@@ -3,14 +3,14 @@ require "spec_helper"
 describe Hood::DSL do
   describe ".evaluate" do
     it "should return an instance" do
-      with_envfile "Envfile" do
-        Hood::DSL.evaluate("Envfile").should be_an_instance_of(Hood::DSL)
+      with_envfile do |path|
+        Hood::DSL.evaluate(path).should be_an_instance_of(Hood::DSL)
       end
     end
 
     it "should evaluate the file at the passed path" do
-      with_envfile "Envfile", "env 'FOO'" do
-        Hood::DSL.evaluate("Envfile").should have(1).variables
+      with_envfile "env 'FOO'" do |path|
+        Hood::DSL.evaluate(path).should have(1).variables
       end
     end
   end
