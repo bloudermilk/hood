@@ -10,36 +10,54 @@ describe Hood::DSL do
     let (:builder) { Hood::DSL.new }
 
     it "should return an instance of variable" do
-      builder.env("foo").should be_an_instance_of(Hood::Variable)
+      builder.env("FOO").should be_an_instance_of(Hood::Variable)
     end
 
-    it "should add the variable to @variables on the builder"
+    it "should add the variable to @variables on the builder" do
+      builder.variables.should be_empty
+      builder.env "FOO"
+      builder.should have(1).variables
+    end
 
     context "when @optional is true" do
+      before(:each) { builder.instance_variable_set(:@optional, true) }
+
       context "when :optional is true" do
-        it "should instantiate an optional Variable"
+        it "should instantiate an optional Variable" do
+          builder.env("FOO", :optional => true).should be_optional
+        end
       end
 
       context "when :optional is false" do
-        it "should instantiate a required Variable"
+        it "should instantiate a required Variable" do
+          builder.env("FOO", :optional => false).should_not be_optional
+        end
       end
 
       context "when :optional isn't passed" do
-        it "should instantiate an optional Variable"
+        it "should instantiate an optional Variable" do
+          builder.env("FOO").should be_optional
+        end
       end
     end
 
     context "when @optional is false" do
       context "when :optional is true" do
-        it "should instantiate an optional Variable"
+        it "should instantiate an optional Variable" do
+          builder.env("FOO", :optional => true).should be_optional
+        end
       end
 
       context "when :optional is false" do
-        it "should instantiate a required Variable"
+        it "should instantiate a required Variable" do
+          builder.env("FOO", :optional => false).should_not be_optional
+        end
       end
 
       context "when :optional isn't passed" do
-        it "should instantiate a required Variable"
+        it "should instantiate a required Variable" do
+          builder.env("FOO").should_not be_optional
+        end
       end
     end
 
@@ -57,6 +75,10 @@ describe Hood::DSL do
 
     context "when an unknown option is passed" do
       it "should raise an exception"
+    end
+
+    context "when a string is used as the key to an option" do
+      it "should convert the key to a symbol"
     end
   end
 

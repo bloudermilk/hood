@@ -1,5 +1,9 @@
 module Hood
   class DSL
+    VALID_OPTION_KEYS = [:description, :optional]
+
+    attr_reader :variables
+
     def self.evaluate(envfile)
       builder = new
       builder.instance_eval(Hood.read_file(envfile.to_s), envfile.to_s, 1)
@@ -16,6 +20,10 @@ module Hood
       _normalize_options(name, opts)
 
       var = Variable.new(name, opts)
+
+      @variables << var
+
+      var
     end
 
     def optional
@@ -37,10 +45,10 @@ module Hood
     def _normalize_hash(opts)
       # Cannot modify a hash during an iteration in 1.9
       opts.keys.each do |k|
-        next if String === k
+        next if k.is_a? Symbol
         v = opts[k]
         opts.delete(k)
-        opts[k.to_s] = v
+        opts[k.to_sym] = v
       end
       opts
     end
@@ -48,17 +56,20 @@ module Hood
     def _normalize_options(name, opts)
       _normalize_hash(opts)
 
-      invalid_keys = opts.keys - %w(description prefix optional)
+      invalid_keys = opts.keys - VALID_OPTION_KEYS
       if invalid_keys.any?
         plural = invalid_keys.size > 1
-        message = "You passed #{invalid_keys.map{|k| ':'+k }.join(", ")} "
+        message = "You passed #{invalid_keys.map{|k| ":#{k}" }.join(", ")} "
         if plural
-          message << "as options for env '#{name}', but they are invalid."
+          message << "as options for variable '#{name}', but they are invalid."
         else
-          message << "as an option for env '#{name}', but it is invalid."
+          message << "as an option for variable '#{name}', but it is invalid."
         end
         raise InvalidOption, message
       end
+
+      # The :optional option should default to the builder's state
+      opts[:optional] = @optional if opts[:optional].nil?
     end
   end
 end
