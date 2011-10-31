@@ -16,10 +16,19 @@ module Hood
       @prefix     = ""
     end
 
+    def exists?(name)
+      !!@variables.index {|v| v.name == name }
+    end
+
     def env(name, opts={})
       name, opts = _normalize_options(name, opts)
 
       var = Variable.new(name, opts)
+
+      if exists? var.name
+        message = "You tried to define the variable #{var.name} twice."
+        raise DuplicateVariableError, message
+      end
 
       @variables << var
 

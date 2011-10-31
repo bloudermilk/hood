@@ -3,9 +3,10 @@ module Hood
   autoload :Variable, "hood/variable"
   autoload :VERSION,  "hood/version"
 
-  class HoodError     < StandardError ; end
-  class DslError      < HoodError     ; end
-  class InvalidOption < DslError      ; end
+  class HoodError               < StandardError ; end
+  class DslError                < HoodError     ; end
+  class InvalidOption           < DslError      ; end
+  class DuplicateVariableError  < DslError      ; end
 
   class << self
     def read_file(file)

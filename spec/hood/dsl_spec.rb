@@ -28,6 +28,13 @@ describe Hood::DSL do
       builder.should have(1).variables
     end
 
+    context "when a variable with the same name has already been added" do
+      it "should raise an exception" do
+        builder.env "FOO"
+        lambda { builder.env "FOO" }.should raise_exception
+      end
+    end
+
     context "when @optional is true" do
       before(:each) { builder.instance_variable_set(:@optional, true) }
 
