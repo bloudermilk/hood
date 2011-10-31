@@ -17,7 +17,7 @@ Hood uses something called an "Envfile" to define environment variables. It uses
 a DSL (Domain Specific Language) similar to Bundler's to do so:
 
 ```ruby
-env "GOOGLE_MAPS_API_KEY", required: true
+env "GOOGLE_MAPS_API_KEY"
 
 prefix "DB_" do
   env "PASSWORD"
@@ -31,7 +31,6 @@ end
 ## Options
 * :description - If the desired value isn't obvious, you can include a string
 * :optional - Pass true to avoid throwing a runtime error when the app starts and this var isn't present
-* :prefix - Prefixes the group (or env I guess) with the passed string. Useful when you have a group where all vars have the same prefix
 * :default - A pre-defined default value for this var
 
 ## Compatibility
