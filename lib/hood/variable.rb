@@ -1,7 +1,9 @@
 module Hood
   class Variable
     def initialize(name, opts={})
-      @name = opts[:name]
+      @name         = name
+      @description  = opts[:description]
+      @optional     = !!opts[:optional]
     end
   end
 end
