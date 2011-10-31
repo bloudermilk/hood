@@ -7,7 +7,12 @@ describe Hood::DSL do
   end
 
   describe "#env" do
-    it "should return an instance of variable"
+    let (:builder) { Hood::DSL.new }
+
+    it "should return an instance of variable" do
+      builder.env("foo").should be_an_instance_of(Hood::Variable)
+    end
+
     it "should add the variable to @variables on the builder"
 
     context "when @optional is true" do
