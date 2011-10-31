@@ -9,8 +9,7 @@ describe Hood::DSL do
     end
 
     it "should evaluate the file at the passed path" do
-      contents = "env 'FOO'"
-      with_envfile "Envfile", contents do
+      with_envfile "Envfile", "env 'FOO'" do
         Hood::DSL.evaluate("Envfile").should have(1).variables
       end
     end
