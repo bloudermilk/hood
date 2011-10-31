@@ -17,7 +17,7 @@ module Hood
     end
 
     def env(name, opts={})
-      _normalize_options(name, opts)
+      name, opts = _normalize_options(name, opts)
 
       var = Variable.new(name, opts)
 
@@ -33,7 +33,7 @@ module Hood
       @optional = old
     end
 
-    def prefix(prefix)
+    def prefix(prefix, &block)
       @prefix, old = @prefix + prefix, @prefix
       yield
     ensure
@@ -70,6 +70,11 @@ module Hood
 
       # The :optional option should default to the builder's state
       opts[:optional] = @optional if opts[:optional].nil?
+
+      # Prepend the prefix
+      name = @prefix + name
+
+      [name, opts]
     end
   end
 end

@@ -11,4 +11,10 @@ module Hood
 
   class DslError      < HoodError; status_code(3) ; end
   class InvalidOption < DslError                  ; end
+
+  class << self
+    def read_file(file)
+      File.open(file, "rb") { |f| f.read }
+    end
+  end
 end
