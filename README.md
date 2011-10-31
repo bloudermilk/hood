@@ -33,3 +33,18 @@ end
 * :optional - Pass true to avoid throwing a runtime error when the app starts and this var isn't present
 * :prefix - Prefixes the group (or env I guess) with the passed string. Useful when you have a group where all vars have the same prefix
 * :default - A pre-defined default value for this var
+
+## Compatibility
+
+Hood is tested against the following Rubies: MRI 1.8.7, MRI 1.9.2, MRI 1.9.3,
+Rubinius 2.0, and JRuby.
+
+![Build Status](https://secure.travis-ci.org/bloudermilk/hood.png?branch=master&.png)
+
+[Build History](http://travis-ci.org/#!/bloudermilk/hood)
+
+
+## License
+
+Hood is released under the MIT license. See the LICENSE file for more
+info.
