@@ -19,6 +19,10 @@ a DSL (Domain Specific Language) similar to Bundler's to do so:
 ```ruby
 env "GOOGLE_MAPS_API_KEY"
 
+env "REDIS_URI", :default => "localhost:6379"
+
+env "SALES_TAX", :description => "Current sales tax in Los Angeles (eg. 0.0875)"
+
 prefix "DB_" do
   env "PASSWORD"
   env "USER"
