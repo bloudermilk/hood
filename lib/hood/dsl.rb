@@ -2,7 +2,7 @@ module Hood
   class DSL
     def self.evaluate(envfile)
       builder = new
-      builder.instance_eval(
+      #builder.instance_eval(
     end
 
     def initialize
