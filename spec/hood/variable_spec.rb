@@ -6,6 +6,11 @@ describe Hood::Variable do
       Hood::Variable.new("FOO").name.should == "FOO"
     end
 
+    it "should set @default to the :default option" do
+      var = Hood::Variable.new("FOO", :default => "LOL")
+      var.instance_variable_get(:@default).should == "LOL"
+    end
+
     it "should set @description the :description option" do
       description = "So awesome."
       var = Hood::Variable.new("FOO", :description => description)

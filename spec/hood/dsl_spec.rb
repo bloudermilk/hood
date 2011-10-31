@@ -122,6 +122,18 @@ describe Hood::DSL do
         builder.env("FOO", "description" => "Yeah").description.should == "Yeah"
       end
     end
+
+    context "when :default is passed" do
+      it "should instantiate a Variable with that :default" do
+        builder.env("FOO", :default => "LOL").default.should == "LOL"
+      end
+    end
+
+    context "When :default isn't passed" do
+      it "should not raise an error" do
+        lambda { builder.env("FOO") }.should_not raise_exception
+      end
+    end
   end
 
   describe "#optional" do

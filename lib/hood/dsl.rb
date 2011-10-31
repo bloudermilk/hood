@@ -1,6 +1,6 @@
 module Hood
   class DSL
-    VALID_OPTION_KEYS = [:description, :optional]
+    VALID_OPTION_KEYS = [:default, :description, :optional]
 
     attr_reader :variables
 
