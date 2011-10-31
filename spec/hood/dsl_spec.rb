@@ -24,14 +24,15 @@ describe Hood::DSL do
 
     it "should add the variable to @variables on the builder" do
       builder.variables.should be_empty
-      builder.env "FOO"
+      builder.env("FOO")
       builder.should have(1).variables
     end
 
     context "when a variable with the same name has already been added" do
-      it "should raise an exception" do
-        builder.env "FOO"
-        lambda { builder.env "FOO" }.should raise_exception
+      it "should raise a DuplicateVariableError with a nicely formatted message" do
+        message = "You tried to define the variable 'FOO' twice."
+        builder.env("FOO")
+        lambda { builder.env("FOO") }.should raise_error(Hood::DuplicateVariableError, message)
       end
     end
 
@@ -106,20 +107,20 @@ describe Hood::DSL do
 
     context "when an unknown option is passed" do
       it "should raise an InvalidOption error" do
-        lambda { builder.env("FOO", :lol => true) }.should raise_exception(Hood::InvalidOption)
+        lambda { builder.env("FOO", :lol => true) }.should raise_error(Hood::InvalidOptionError)
       end
 
       context "when a single unknown option is passed" do
         it "should format the string nicely" do
           message = "You passed :lol as an option for variable 'FOO', but it is invalid."
-          lambda { builder.env("FOO", :lol => true) }.should raise_exception(Hood::InvalidOption, message)
+          lambda { builder.env("FOO", :lol => true) }.should raise_error(Hood::InvalidOptionError, message)
         end
       end
 
       context "when multiple unknown options are passed" do
         it "should format the string nicely" do
           message = "You passed :lol, :wtf as options for variable 'FOO', but they are invalid."
-          lambda { builder.env("FOO", :lol => true, :wtf => false) }.should raise_exception(Hood::InvalidOption, message)
+          lambda { builder.env("FOO", :lol => true, :wtf => false) }.should raise_exception(Hood::InvalidOptionError, message)
         end
       end
     end

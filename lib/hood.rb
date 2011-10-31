@@ -5,7 +5,7 @@ module Hood
 
   class HoodError               < StandardError ; end
   class DslError                < HoodError     ; end
-  class InvalidOption           < DslError      ; end
+  class InvalidOptionError      < DslError      ; end
   class DuplicateVariableError  < DslError      ; end
 
   class << self

@@ -26,7 +26,7 @@ module Hood
       var = Variable.new(name, opts)
 
       if exists? var.name
-        message = "You tried to define the variable #{var.name} twice."
+        message = "You tried to define the variable '#{var.name}' twice."
         raise DuplicateVariableError, message
       end
 
@@ -74,7 +74,7 @@ module Hood
         else
           message << "as an option for variable '#{name}', but it is invalid."
         end
-        raise InvalidOption, message
+        raise InvalidOptionError, message
       end
 
       # The :optional option should default to the builder's state
