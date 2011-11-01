@@ -43,4 +43,71 @@ describe Hood::Variable do
       end
     end
   end
+
+  describe "#fulfill!" do
+    context "if the variable has a default" do
+      let(:var) { Hood::Variable.new("FOO", default: "LOL") }
+
+      context "if the variable is not set" do
+        it "should set the ENV variable" do
+          var.fulfill!
+          ENV["FOO"].should == "LOL"
+        end
+
+        it "should not throw an exception" do
+          lambda { var.fulfill! }.should_not raise_error
+        end
+      end
+
+      context "if the variable is set" do
+        before(:each) { ENV["FOO"] = "ORLY" }
+
+        it "should leave the ENV var as is" do
+          var.fulfill!
+          ENV["FOO"].should == "ORLY"
+        end
+
+        it "should not throw an exception" do
+          lambda { var.fulfill! }.should_not raise_error
+        end
+      end
+    end
+
+    context "the variable is optional" do
+      let(:var) { Hood::Variable.new("FOO", optional: true) }
+
+      context "if the variable is set" do
+        before(:each) { ENV["FOO"] = "LOL" }
+
+        it "should not raise an exception" do
+          lambda { var.fulfill! }.should_not raise_error
+        end
+      end
+
+      context "if the variable is not set" do
+        it "should not raise an exception" do
+          lambda { var.fulfill! }.should_not raise_error
+        end
+      end
+    end
+
+    context "the variable is not optional" do
+      let(:var) { Hood::Variable.new("FOO") }
+
+      context "if the variable is set" do
+        before(:each) { ENV["FOO"] = "LOL" }
+
+        it "should not raise an exception" do
+          lambda { var.fulfill! }.should_not raise_error
+        end
+      end
+      
+      context "if the variable is not set" do
+        it "should raise an UnfulfilledVariableEror with the proper message" do
+          message = "Missing required environment variable 'FOO'"
+          lambda { var.fulfill! }.should raise_error(Hood::UnfulfilledVariableError, message)
+        end
+      end
+    end
+  end
 end

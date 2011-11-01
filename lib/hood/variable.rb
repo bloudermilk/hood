@@ -12,5 +12,18 @@ module Hood
     def optional?
       @optional
     end
+
+    def fulfill!
+      ENV[name] ||= @default
+
+      unless valid?
+        message = "Missing required environment variable '#{name}'"
+        raise UnfulfilledVariableError, message
+      end
+    end
+
+    def valid?
+      !!ENV[name] || optional?
+    end
   end
 end
