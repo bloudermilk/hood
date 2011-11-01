@@ -46,7 +46,7 @@ describe Hood::Variable do
 
   describe "#fulfill!" do
     context "if the variable has a default" do
-      let(:var) { Hood::Variable.new("FOO", default: "LOL") }
+      let(:var) { Hood::Variable.new("FOO", :default => "LOL") }
 
       context "if the variable is not set" do
         it "should set the ENV variable" do
@@ -74,7 +74,7 @@ describe Hood::Variable do
     end
 
     context "the variable is optional" do
-      let(:var) { Hood::Variable.new("FOO", optional: true) }
+      let(:var) { Hood::Variable.new("FOO", :optional => true) }
 
       context "if the variable is set" do
         before(:each) { ENV["FOO"] = "LOL" }
