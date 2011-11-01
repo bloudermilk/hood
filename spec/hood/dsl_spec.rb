@@ -119,7 +119,8 @@ describe Hood::DSL do
 
       context "when multiple unknown options are passed" do
         it "should format the string nicely" do
-          message = "You passed :lol, :wtf as options for variable 'FOO', but they are invalid."
+          # Use a regexp since order isn't guaranteed
+          message = /You passed (:lol, :wtf|:wtf, :lol) as options for variable 'FOO', but they are invalid./
           lambda { builder.env("FOO", :lol => true, :wtf => false) }.should raise_exception(Hood::InvalidOptionError, message)
         end
       end
