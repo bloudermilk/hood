@@ -33,8 +33,10 @@ end
 ```
 
 ## Options
-* `:description` If the desired value isn't obvious, you can include a string
-* `:optional` Pass true to avoid throwing a runtime error when the app starts and this var isn't present
+* `:description` If the desired value isn't obvious, you can include a 
+  description
+* `:optional` Pass true to avoid throwing a runtime error when the app starts
+  and this var isn't present
 * `:default` A pre-defined default value for this var
 
 ## Compatibility
@@ -49,5 +51,4 @@ Rubinius 2.0, and JRuby.
 
 ## License
 
-Hood is released under the MIT license. See the LICENSE file for more
-info.
+Hood is released under the MIT license. See the LICENSE file for more info.
