@@ -33,9 +33,9 @@ end
 ```
 
 ## Options
-* :description - If the desired value isn't obvious, you can include a string
-* :optional - Pass true to avoid throwing a runtime error when the app starts and this var isn't present
-* :default - A pre-defined default value for this var
+* `:description` - If the desired value isn't obvious, you can include a string
+* `:optional` - Pass true to avoid throwing a runtime error when the app starts and this var isn't present
+* `:default` - A pre-defined default value for this var
 
 ## Compatibility
 
