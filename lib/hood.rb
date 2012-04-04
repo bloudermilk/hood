@@ -16,7 +16,7 @@ module Hood
 
     def setup!
       load_envfile
-      fulfull_requirements
+      fulfill_requirements
     end
 
     def load_envfile
